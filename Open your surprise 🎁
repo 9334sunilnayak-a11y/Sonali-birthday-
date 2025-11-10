@@ -1,0 +1,90 @@
+import { useState } from "react";
+import confetti from "canvas-confetti";
+
+export default function SurprisePopup({ message, image }) {
+  const [open, setOpen] = useState(false);
+
+  const openPopup = () => {
+    setOpen(true);
+    confetti({
+      particleCount: 200,
+      spread: 90,
+      origin: { y: 0.6 },
+    });
+  };
+
+  const closePopup = () => setOpen(false);
+
+  return (
+    <>
+      {!open && (
+        <button onClick={openPopup} className="surprise-btn">
+          Open Surprise 🎁
+        </button>
+      )}
+
+      {open && (
+        <div className="popup-overlay">
+          <div className="popup-box fade-in">
+            <h2>{message}</h2>
+            {image && <img src={image} alt="surprise" className="popup-img" />}
+            <button onClick={closePopup} className="close-btn">
+              Close ✖
+            </button>
+          </div>
+        </div>
+      )}
+    </>
+  );
+}import SurprisePopup from "./SurprisePopup";
+
+<SurprisePopup
+  message="You are the best Sister, Sonali! 💖"
+  image="/assets/images/img1.jpeg"  // change to any image you want
+/>/* Popup overlay */
+.popup-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+/* Popup box */
+.popup-box {
+  background: var(--background-gradient);
+  padding: 40px;
+  border-radius: 20px;
+  text-align: center;
+  max-width: 350px;
+  width: 90%;
+  color: var(--accent-color);
+  box-shadow: 0 0 20px rgba(255, 0, 140, 0.4);
+}
+
+/* Surprise image inside popup */
+.popup-img {
+  width: 100%;
+  margin-top: 15px;
+  border-radius: 15px;
+}
+
+/* Button styles */
+.surprise-btn, .close-btn {
+  background: #fff;
+  color: #ff008c;
+  border: none;
+  padding: 12px 20px;
+  margin-top: 20px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: 0.3s;
+}
+
+.surprise-btn:hover, .close-btn:hover {
+  transform: scale(1.1);
+  background: #ffe2f3;
+}Auto popup: Yes
